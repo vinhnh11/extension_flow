@@ -4,7 +4,7 @@ Chrome extension (MV3) chạy batch prompt và workflow node trên **Google Flow
 
 ## Cài đặt
 1. Mở `chrome://extensions` và bật **Developer mode**.
-2. Bấm **Load unpacked** rồi chọn thư mục `D:\ai\batchpilot`.
+2. Bấm **Load unpacked** rồi chọn thư mục `batchpilot/` trong repo này (đường dẫn đầy đủ trên máy bạn).
 3. Bấm icon BatchPilot trên thanh công cụ để mở side panel.
 
 ## Dùng
