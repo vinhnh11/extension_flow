@@ -1,0 +1,5 @@
+.venv/
+inputs/
+outputs/
+runs/
+.env

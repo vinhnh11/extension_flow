@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <title>BatchPilot</title>
+  <link rel="stylesheet" href="ui.css">
+  <link rel="stylesheet" href="sidepanel.css">
+</head>
+<body>
+  <nav class="tabs" role="tablist">
+    <button role="tab" data-tab="batch" aria-selected="true">Batch</button>
+    <button role="tab" data-tab="workflow" aria-selected="false">Workflow</button>
+    <button role="tab" data-tab="settings" aria-selected="false">Cài đặt</button>
+  </nav>
+
+  <section id="tab-batch" class="tab">
+    <div class="row">
+      <label>Nền tảng
+        <select id="provider">
+          <option value="flow">Google Flow</option>
+          <option value="chatgpt">ChatGPT</option>
+          <option value="grok">Grok</option>
+        </select>
+      </label>
+      <label id="mediaTypeWrap">Loại
+        <select id="mediaType"><option value="image">Ảnh</option><option value="video">Video</option></select>
+      </label>
+    </div>
+    <div class="row">
+      <label>Tỉ lệ
+        <select id="ratio">
+          <option value="">Mặc định của trang</option>
+          <option>1:1</option><option>16:9</option><option>9:16</option>
+          <option>4:3</option><option>3:4</option><option>3:2</option><option>2:3</option>
+        </select>
+      </label>
+      <label>Kết quả / prompt
+        <select id="count"><option>1</option><option>2</option><option>3</option><option>4</option></select>
+      </label>
+    </div>
+    <p id="flowHint" class="muted hint">Flow: mở sẵn 1 project và chọn model / tỉ lệ / số lượng trong cài đặt của Flow. BatchPilot chỉ chờ đủ “Kết quả / prompt”.</p>
+
+    <label>Prompts
+      <textarea id="prompts" rows="9" placeholder="Prompt 1…&#10;&#10;Prompt 2…"></textarea>
+    </label>
+    <div class="row tight">
+      <select id="splitMode" aria-label="Cách tách prompt">
+        <option value="block">Tách bằng dòng trống</option>
+        <option value="line">Mỗi dòng 1 prompt</option>
+      </select>
+      <button id="importTxt" type="button">Nhập .txt</button>
+      <input id="txtFile" type="file" accept=".txt,.csv,text/plain" hidden>
+      <span id="promptCount" class="muted"></span>
+    </div>
+
+    <label>Ảnh tham chiếu
+      <input id="refFiles" type="file" accept="image/*" multiple>
+    </label>
+    <div class="row tight">
+      <select id="refMode" aria-label="Cách dùng ảnh tham chiếu">
+        <option value="all">Gắn tất cả ảnh cho mọi prompt</option>
+        <option value="seq">Lần lượt: prompt i dùng ảnh i</option>
+        <option value="none">Không dùng</option>
+      </select>
+      <button id="clearRefs" type="button">Bỏ ảnh</button>
+    </div>
+    <div id="refThumbs" class="thumbs"></div>
+
+    <button id="enqueue" class="primary block">Thêm vào hàng đợi &amp; chạy</button>
+
+    <h3>Hàng đợi <span id="stats" class="muted"></span></h3>
+    <div class="row tight wrap">
+      <button id="run">▶ Chạy</button>
+      <button id="pause">⏸ Tạm dừng</button>
+      <button id="stop">⏹ Dừng</button>
+      <button id="retryFailed">↻ Chạy lại lỗi</button>
+      <button id="clearDone">Xóa đã xong</button>
+      <button id="clearAll">Xóa hết</button>
+    </div>
+    <p class="muted hint">Giữ side panel mở trong lúc chạy.</p>
+    <ol id="queue"></ol>
+  </section>
+
+  <section id="tab-workflow" class="tab" hidden>
+    <p>Dựng chuỗi node kéo-thả: Ảnh → Prompt → Flow / ChatGPT / Grok → Chờ → Tải về / Telegram. Dùng <code>@slug</code> trong prompt để chèn text hoặc ảnh từ node khác.</p>
+    <button id="openWorkflow" class="primary block">Mở Workflow Editor</button>
+  </section>
+
+  <section id="tab-settings" class="tab" hidden>
+    <form id="settingsForm">
+      <div class="row">
+        <label>Chờ giữa prompt (giây, từ)<input name="delayMin" type="number" min="0"></label>
+        <label>đến<input name="delayMax" type="number" min="0"></label>
+      </div>
+      <div class="row">
+        <label>Số lần thử lại khi lỗi<input name="maxRetries" type="number" min="0" max="5"></label>
+        <label>Timeout ảnh / video (giây)
+          <span class="row"><input name="timeoutImage" type="number" min="30"><input name="timeoutVideo" type="number" min="60"></span>
+        </label>
+      </div>
+      <label class="check"><input name="autoDownload" type="checkbox"> Tự tải kết quả về</label>
+      <label>Thư mục (trong thư mục Downloads)<input name="folder"></label>
+      <label>Mẫu tên file — [Date] [Time] [Prompt] [Index] [Provider] [Node]<input name="template"></label>
+      <label>Tiền tố prompt cho ChatGPT (để ép tạo ảnh)<input name="chatgptPrefix"></label>
+      <label>Telegram bot token (cho node Telegram)<input name="telegramToken" type="password" autocomplete="off"></label>
+      <label>Selector tùy chỉnh (JSON, nâng cao)
+        <textarea name="selectors" rows="5" placeholder='{ "flow": { "submit": "button[aria-label=\"Create\"]" } }'></textarea>
+      </label>
+      <button class="primary" type="submit">Lưu cài đặt</button>
+      <span id="savedMsg" class="muted" role="status"></span>
+    </form>
+    <h3>Báo lỗi selector</h3>
+    <p class="muted hint">Khi Flow / ChatGPT / Grok đổi giao diện: mở đúng chỗ bị lỗi trên trang đó (vd. bấm mở menu cài đặt của Flow), rồi bấm nút dưới. Nội dung được copy sẵn để dán cho dev.</p>
+    <button id="snapshot" type="button">Chụp cấu trúc trang</button>
+    <textarea id="snapshotOut" rows="4" readonly aria-label="Cấu trúc trang"></textarea>
+  </section>
+
+  <script src="lib/core.js"></script>
+  <script src="lib/runner.js"></script>
+  <script src="sidepanel.js"></script>
+</body>
+</html>

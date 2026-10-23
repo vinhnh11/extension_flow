@@ -1,0 +1,16 @@
+TASK: CHARACTER REPLACEMENT WITH REFERENCE-VIDEO MOTION TRANSFER
+Use the provided character reference image (IMAGE_1) as the authoritative source for the main
+character's identity, appearance, and outfit. Use the provided reference video (VIDEO_1) as the
+authoritative source for the original motion, timing, camera movement, framing, scene, lighting,
+props and every other person or object.
+DO
+- Replace ONLY the main person in VIDEO_1 with the character from IMAGE_1.
+- Match body pose, gestures and hand-object interactions frame by frame, with identical timing.
+- Keep the camera path, lens, framing, background, props and lighting exactly as in VIDEO_1.
+- Keep the character's face, hair, accessories and outfit consistent across all frames,
+  correctly lit by the scene's light.
+- Keep the same duration and aspect ratio as VIDEO_1.
+DO NOT
+- Add, remove or restyle any object, background element or secondary person.
+- Change the action, speed or camera movement.
+- Add text, captions, logos or watermarks.

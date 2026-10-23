@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "BatchPilot",
+  "version": "0.1.0",
+  "description": "Batch prompt & node workflow automation for Google Flow, ChatGPT and Grok — runs in your own logged-in tabs.",
+  "permissions": ["storage", "unlimitedStorage", "sidePanel", "tabs", "scripting", "downloads", "debugger"],
+  "host_permissions": [
+    "https://flow.google.com/*",
+    "https://flow-content.google/*",
+    "https://*.googleusercontent.com/*",
+    "https://storage.googleapis.com/*",
+    "https://chatgpt.com/*",
+    "https://*.oaiusercontent.com/*",
+    "https://grok.com/*",
+    "https://assets.grok.com/*",
+    "https://*.x.ai/*",
+    "https://api.telegram.org/*"
+  ],
+  "background": { "service_worker": "background.js" },
+  "side_panel": { "default_path": "sidepanel.html" },
+  "action": { "default_title": "BatchPilot" },
+  "content_scripts": [
+    { "matches": ["https://flow.google.com/*"], "js": ["content/page-click.js"], "run_at": "document_start", "world": "MAIN" },
+    { "matches": ["https://flow.google.com/*"], "js": ["content/common.js", "content/flow.js"] },
+    { "matches": ["https://chatgpt.com/*"], "js": ["content/common.js", "content/chatgpt.js"] },
+    { "matches": ["https://grok.com/*"], "js": ["content/common.js", "content/grok.js"] }
+  ]
+}

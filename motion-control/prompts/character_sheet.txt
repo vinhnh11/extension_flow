@@ -1,0 +1,17 @@
+# TASK: GENERATE A COMPLETE 4-PANEL CHARACTER REFERENCE SHEET
+Create a complete, photorealistic character reference sheet using the provided reference assets.
+Combine all referenced elements into ONE SINGLE, visually consistent character, presented in a
+strictly controlled 2x2 studio layout.
+SOURCES
+- IMAGE_1: authoritative source for face, hair, skin tone, body proportions.
+- IMAGE_2: authoritative source for outfit and accessories (every garment, color, logo, shoes).
+LAYOUT (vertical 9:16 canvas, 4 equal panels, thin gutters)
+- Top-left: head-and-shoulders close-up, front view, neutral expression.
+- Top-right: head-and-shoulders, side/three-quarter view, same lighting.
+- Bottom-left: full body, front view, standing straight, arms relaxed.
+- Bottom-right: full body, back view, same pose.
+RULES
+- Same person, same outfit, same proportions in all four panels.
+- Seamless light-gray studio background, soft even lighting, no harsh shadows.
+- Photorealistic skin and fabric detail, sharp focus.
+- No text, labels, watermarks, borders or extra people.

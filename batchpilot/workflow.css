@@ -1,0 +1,40 @@
+body { height: 100vh; display: grid; grid-template: auto 1fr / 150px 1fr; overflow: hidden; }
+.bar { grid-column: 1 / -1; display: flex; gap: 6px; align-items: center; padding: 8px 10px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+.bar input, .bar select { width: auto; }
+.bar #wfName { width: 200px; }
+.brand { color: var(--accent); margin-right: 6px; }
+.spacer { flex: 1; }
+#palette { display: flex; flex-direction: column; gap: 6px; padding: 10px; border-right: 1px solid var(--line); overflow: auto; }
+#palette button { text-align: left; }
+#palette p { margin: 8px 0 0; font-size: 11px; color: var(--muted); }
+
+#drawflow { position: relative; overflow: hidden;
+  background: radial-gradient(circle, #2a2c31 1px, transparent 1px) 0 0 / 22px 22px, var(--bg); }
+
+.drawflow .drawflow-node { width: 260px; padding: 0; background: var(--panel); color: var(--text); border: 1px solid var(--line); border-radius: 10px; box-shadow: 0 4px 16px #0006; }
+.drawflow .drawflow-node.selected { background: var(--panel); border-color: var(--accent); }
+.drawflow .drawflow-node .drawflow_content_node { width: 100%; }
+.drawflow .drawflow-node .input, .drawflow .drawflow-node .output { width: 14px; height: 14px; background: var(--bg); border: 2px solid var(--muted); }
+.drawflow .drawflow-node .input:hover, .drawflow .drawflow-node .output:hover { border-color: var(--accent); }
+.drawflow .connection .main-path { stroke: #6b6f78; stroke-width: 3px; }
+.drawflow .connection .main-path.selected, .drawflow .connection .main-path:hover { stroke: var(--accent); }
+.drawflow-delete { background: var(--err); color: #fff; border: 0; line-height: 28px; }
+
+.drawflow-node .hdr { display: flex; gap: 6px; align-items: center; padding: 6px 8px; border-bottom: 1px solid var(--line); }
+.drawflow-node .hdr .title { font-weight: 600; white-space: nowrap; }
+.drawflow-node .hdr .slug { flex: 1; min-width: 0; padding: 2px 6px; font-size: 12px; color: var(--accent); background: transparent; }
+.drawflow-node .hdr .toggle { padding: 0 6px; }
+.drawflow-node .body { display: grid; gap: 6px; padding: 8px; }
+.drawflow-node .opts { display: flex; gap: 4px; }
+.drawflow-node .opts select { padding: 3px 4px; font-size: 12px; }
+.drawflow-node .status { padding: 0 8px 6px; font-size: 12px; color: var(--muted); overflow-wrap: anywhere; }
+.drawflow-node .result img, .drawflow-node .result video { width: 74px; height: 74px; object-fit: cover; border-radius: 4px; }
+.drawflow-node.off { opacity: .45; }
+.drawflow-node.st-run { border-color: var(--run); } .drawflow-node.st-run .status { color: var(--run); }
+.drawflow-node.st-done { border-color: var(--ok); } .drawflow-node.st-done .status { color: var(--ok); }
+.drawflow-node.st-fail { border-color: var(--err); } .drawflow-node.st-fail .status { color: var(--err); }
+.drawflow-node.st-skip .status { color: var(--warn); }
+.drawflow-node.note { background: #2a2614; }
+
+#toast { position: fixed; right: 16px; bottom: 16px; padding: 8px 12px; border-radius: 6px; background: var(--panel); border: 1px solid var(--line); opacity: 0; transition: opacity .2s; pointer-events: none; }
+#toast.show { opacity: 1; }

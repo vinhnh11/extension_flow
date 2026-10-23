@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <title>BatchPilot Workflow</title>
+  <link rel="stylesheet" href="lib/drawflow.min.css">
+  <link rel="stylesheet" href="ui.css">
+  <link rel="stylesheet" href="workflow.css">
+</head>
+<body>
+  <header class="bar">
+    <strong class="brand">BatchPilot</strong>
+    <input id="wfName" aria-label="Tên workflow" value="Workflow mới">
+    <select id="wfList" aria-label="Workflow đã lưu"></select>
+    <button id="wfNew">Mới</button>
+    <button id="wfSave">Lưu</button>
+    <button id="wfDelete">Xóa</button>
+    <button id="wfExport">Xuất JSON</button>
+    <button id="wfImport">Nhập JSON</button>
+    <input id="wfImportFile" type="file" accept=".json,application/json" hidden>
+    <span class="spacer"></span>
+    <button id="zoomOut" aria-label="Thu nhỏ">−</button>
+    <button id="zoomReset">100%</button>
+    <button id="zoomIn" aria-label="Phóng to">+</button>
+    <button id="wfRun" class="primary">▶ Chạy workflow</button>
+    <button id="wfStop" disabled>⏹ Dừng</button>
+  </header>
+  <aside id="palette" aria-label="Thêm node"></aside>
+  <main id="drawflow"></main>
+  <div id="toast" role="status" aria-live="polite"></div>
+
+  <script src="lib/drawflow.min.js"></script>
+  <script src="lib/core.js"></script>
+  <script src="lib/runner.js"></script>
+  <script src="workflow.js"></script>
+</body>
+</html>
